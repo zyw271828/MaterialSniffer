@@ -11,7 +11,6 @@ public class Main extends Application {
         try {
             Parent root = (Parent) FXMLLoader.load(getClass().getResource("WindowView.fxml"));
             Scene scene = new Scene(root, 1024, 768);
-            primaryStage.setResizable(false);
             primaryStage.setTitle("MaterialSniffer");
             primaryStage.setScene(scene);
             primaryStage.show();

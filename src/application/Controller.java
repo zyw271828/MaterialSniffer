@@ -3,8 +3,19 @@ package application;
 import java.io.EOFException;
 import java.net.Inet4Address;
 import java.util.concurrent.TimeoutException;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PcapHandle;
 import org.pcap4j.core.PcapNativeException;
@@ -15,6 +26,7 @@ import org.pcap4j.packet.IpV4Packet;
 import org.pcap4j.packet.Packet;
 import org.pcap4j.packet.namednumber.IpNumber;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXTextArea;
 
 public class Controller {
@@ -24,6 +36,9 @@ public class Controller {
 
     @FXML
     private JFXTextArea displayArea;
+
+    @FXML
+    private JFXMasonryPane displayMasonryPane;
 
     @FXML
     void onStartBtnClick(ActionEvent event) {
@@ -48,12 +63,22 @@ public class Controller {
 
             IpV4Packet ipV4Packet = packet.get(IpV4Packet.class);
             try {
-                IpNumber protocol = ipV4Packet.getHeader().getProtocol();
+                final IpNumber protocol = ipV4Packet.getHeader().getProtocol();
                 Inet4Address srcAddr = ipV4Packet.getHeader().getSrcAddr();
                 Inet4Address dstAddr = ipV4Packet.getHeader().getDstAddr();
-                short length = ipV4Packet.getHeader().getTotalLength();
+                final short length = ipV4Packet.getHeader().getTotalLength();
                 displayArea.appendText(protocol.name() + " Form " + srcAddr.getHostAddress() + " to "
                         + dstAddr.getHostAddress() + " Length: " + length + "\n");
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        Label label = new Label(protocol.name());
+                        label.setAlignment(Pos.CENTER);
+                        label.setPrefWidth(length / 2);
+                        label.setBackground(
+                                new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                        displayMasonryPane.getChildren().add(label);
+                    }
+                });
             } catch (NullPointerException e) {
             }
 

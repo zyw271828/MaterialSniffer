@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768" prefWidth="1024" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
-   <children>
-      <JFXButton fx:id="startBtn" buttonType="RAISED" layoutX="438.0" layoutY="631.0" onAction="#onStartBtnClick" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="开始">
-         <font>
-            <Font name="Noto Sans CJK SC Regular" size="25.0" />
-         </font></JFXButton>
-      <JFXTextArea fx:id="displayArea" layoutX="68.0" layoutY="59.0" prefHeight="505.0" prefWidth="889.0">
-         <font>
-            <Font name="Droid Sans Mono for Powerline" size="25.0" />
-         </font>
-      </JFXTextArea>
-   </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <center>
+      <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <JFXMasonryPane fx:id="displayMasonryPane" style="-fx-background-color: #2196F3;" />
+            <JFXTextArea fx:id="displayArea" prefHeight="505.0" prefWidth="386.0">
+               <font>
+                  <Font name="Droid Sans Mono for Powerline" size="18.0" />
+               </font>
+            </JFXTextArea>
+         </items>
+      </SplitPane>
+   </center>
+   <left>
+      <Pane prefHeight="567.0" prefWidth="64.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="503.0" prefWidth="64.0" BorderPane.alignment="CENTER" />
+   </right>
+   <top>
+      <Pane prefHeight="64.0" prefWidth="1024.0" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <BorderPane prefHeight="158.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <center>
+            <JFXButton fx:id="startBtn" buttonType="RAISED" onAction="#onStartBtnClick" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="开始" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Noto Sans CJK SC Regular" size="25.0" />
+               </font>
+            </JFXButton>
+         </center>
+      </BorderPane>
+   </bottom>
+</BorderPane>
