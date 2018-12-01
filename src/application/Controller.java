@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +34,8 @@ import com.jfoenix.controls.JFXTextArea;
 
 public class Controller {
 
+    private static boolean isRunning = false;
+
     @FXML
     private JFXButton startBtn;
 
@@ -44,13 +47,23 @@ public class Controller {
 
     @FXML
     void onStartBtnClick(ActionEvent event) {
-        Thread thread = new Thread() {
-            public void run() {
-                while (startCapture()) {
+        if (!isRunning) {
+            startBtn.setText("停止");
+            startBtn.setStyle("-fx-background-color: #FF6200; -fx-text-fill: #ffffff;");
+            Thread thread = new Thread() {
+                public void run() {
+                    while (isRunning) {
+                        startCapture();
+                    }
                 }
-            }
-        };
-        thread.start();
+            };
+            thread.start();
+            isRunning = true;
+        } else {
+            startBtn.setText("开始");
+            startBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: #ffffff;");
+            isRunning = false;
+        }
     }
 
     private boolean startCapture() {
@@ -69,11 +82,16 @@ public class Controller {
                 Inet4Address srcAddr = ipV4Packet.getHeader().getSrcAddr();
                 Inet4Address dstAddr = ipV4Packet.getHeader().getDstAddr();
                 final short length = ipV4Packet.getHeader().getTotalLength();
-                displayArea.appendText(protocol.name() + " Form " + srcAddr.getHostAddress() + " to "
-                        + dstAddr.getHostAddress() + " Length: " + length + "\n");
+
+                if (isRunning) {
+                    displayArea.appendText(protocol.name() + " 从 " + srcAddr.getHostAddress() + " 发往 "
+                            + dstAddr.getHostAddress() + " 总长度: " + length + "\n");
+                }
+
                 Platform.runLater(new Runnable() {
                     public void run() {
                         JFXButton button = new JFXButton(protocol.name());
+                        button.setAlignment(Pos.CENTER);
                         button.setPrefWidth(length / 2);
                         button.setTextFill(Color.WHITE);
                         button.setStyle("-fx-font: 14 arial;");
@@ -121,7 +139,9 @@ public class Controller {
                             stage.show();
                         });
 
-                        displayMasonryPane.getChildren().add(button);
+                        if (isRunning) {
+                            displayMasonryPane.getChildren().add(button);
+                        }
                     }
                 });
             } catch (NullPointerException e) {
