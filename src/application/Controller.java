@@ -74,8 +74,26 @@ public class Controller {
                         Label label = new Label(protocol.name());
                         label.setAlignment(Pos.CENTER);
                         label.setPrefWidth(length / 2);
+                        label.setTextFill(Color.WHITE);
+                        label.setStyle("-fx-font: 16 arial;");
+
+                        Color color = Color.WHITE;
+                        switch (label.getText()) {
+                        case "TCP":
+                            color = Color.web("#2196F3");
+                            break;
+                        case "UDP":
+                            color = Color.web("#199B18");
+                            break;
+                        case "ICMPv4":
+                            color = Color.web("#E51C17");
+                            break;
+                        default:
+                            break;
+                        }
+
                         label.setBackground(
-                                new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                                new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
                         displayMasonryPane.getChildren().add(label);
                     }
                 });

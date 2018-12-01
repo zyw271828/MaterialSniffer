@@ -12,8 +12,8 @@
    <center>
       <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
-            <JFXMasonryPane fx:id="displayMasonryPane" style="-fx-background-color: #2196F3;" />
-            <JFXTextArea fx:id="displayArea" prefHeight="505.0" prefWidth="386.0">
+            <JFXMasonryPane fx:id="displayMasonryPane" style="-fx-background-color: #FFFFFF;" />
+            <JFXTextArea fx:id="displayArea" prefHeight="505.0" prefWidth="386.0" style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font name="Droid Sans Mono for Powerline" size="18.0" />
                </font>
