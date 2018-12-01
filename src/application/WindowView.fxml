@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,8 +13,12 @@
    <center>
       <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
-            <JFXMasonryPane fx:id="displayMasonryPane" style="-fx-background-color: #FFFFFF;" />
-            <JFXTextArea fx:id="displayArea" prefHeight="505.0" prefWidth="386.0" style="-fx-background-color: #FFFFFF;">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" stylesheets="@ScrollPane.css">
+               <content>
+                  <JFXMasonryPane fx:id="displayMasonryPane" />
+               </content>
+            </ScrollPane>
+            <JFXTextArea fx:id="displayArea" stylesheets="@ScrollPane.css">
                <font>
                   <Font name="Droid Sans Mono for Powerline" size="18.0" />
                </font>

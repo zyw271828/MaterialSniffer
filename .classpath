@@ -7,7 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/home/zyw/eclipse-workspace/MaterialSniffer/lib/jfoenix-9.0.6.jar"/>
-	<classpathentry kind="lib" path="/home/zyw/eclipse-workspace/MaterialSniffer/lib/commons-io-2.6.jar"/>
 	<classpathentry kind="lib" path="/home/zyw/eclipse-workspace/MaterialSniffer/lib/pcap4j-core-1.7.4.jar"/>
 	<classpathentry kind="lib" path="/home/zyw/eclipse-workspace/MaterialSniffer/lib/jna-5.1.0.jar"/>
 	<classpathentry kind="lib" path="/home/zyw/eclipse-workspace/MaterialSniffer/lib/pcap4j-packetfactory-static-1.7.4.jar"/>

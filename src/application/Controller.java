@@ -107,6 +107,9 @@ public class Controller {
                         case "ICMPv4":
                             color = Color.web("#E51C17");
                             break;
+                        case "IGMP":
+                            color = Color.web("#9C1BB0");
+                            break;
                         default:
                             color = Color.web("#9E9E9E");
                             break;
