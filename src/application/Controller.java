@@ -53,6 +53,9 @@ public class Controller {
 
     @FXML
     public void initialize() {
+
+        displayArea.setStyle("-fx-font: 20 'Droid Sans Mono for Powerline';");
+
         try {
             List<PcapNetworkInterface> nifs = Pcaps.findAllDevs();
             PcapNetworkInterface nif = nifs.get(0);
@@ -67,7 +70,7 @@ public class Controller {
     void onStartBtnClick(ActionEvent event) {
         if (!isRunning) {
             startBtn.setText("停止");
-            startBtn.setStyle("-fx-background-color: #FF6200; -fx-text-fill: #ffffff;");
+            startBtn.setStyle("-fx-background-color: #FF6200; -fx-text-fill: #FFFFFF;");
             changeBtn.setDisable(true);
             Thread thread = new Thread() {
                 public void run() {
@@ -80,7 +83,7 @@ public class Controller {
             isRunning = true;
         } else {
             startBtn.setText("开始");
-            startBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: #ffffff;");
+            startBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: #FFFFFF;");
             changeBtn.setDisable(false);
             isRunning = false;
         }
@@ -144,6 +147,7 @@ public class Controller {
 
                         button.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                             AnchorPane root = new AnchorPane();
+                            root.setBackground(button.getBackground());
                             IpV4Packet pkt = map.get(button);
                             String info = getPacketInfo(pkt);
 
@@ -157,7 +161,9 @@ public class Controller {
                             infoArea.setLayoutY(20);
                             infoArea.setPrefWidth(560);
                             infoArea.setPrefHeight(360);
-                            infoArea.setStyle("-fx-font: 18 'Droid Sans Mono for Powerline';");
+                            infoArea.setBackground(button.getBackground());
+                            infoArea.setFocusColor(color);
+                            infoArea.setStyle("-fx-font: 20 'Droid Sans Mono for Powerline'; -fx-text-fill: #FFFFFF;");
                             infoArea.getStylesheets()
                                     .add(Controller.class.getResource("ScrollPane.css").toExternalForm());
                             infoArea.setText(info);
