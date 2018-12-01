@@ -32,6 +32,7 @@ import org.pcap4j.packet.namednumber.IpNumber;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXButton.ButtonType;
 
 public class Controller {
 
@@ -110,6 +111,7 @@ public class Controller {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         JFXButton button = new JFXButton(protocol.name());
+                        button.setButtonType(ButtonType.RAISED);
                         button.setAlignment(Pos.CENTER);
                         button.setPrefWidth(length / 2);
                         button.setTextFill(Color.WHITE);
@@ -156,6 +158,8 @@ public class Controller {
                             infoArea.setPrefWidth(560);
                             infoArea.setPrefHeight(360);
                             infoArea.setStyle("-fx-font: 18 'Droid Sans Mono for Powerline';");
+                            infoArea.getStylesheets()
+                                    .add(Controller.class.getResource("ScrollPane.css").toExternalForm());
                             infoArea.setText(info);
                             root.getChildren().add(infoArea);
                             stage.show();
