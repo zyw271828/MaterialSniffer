@@ -38,12 +38,29 @@
    <bottom>
       <BorderPane prefHeight="158.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <center>
-            <JFXButton fx:id="startBtn" buttonType="RAISED" onAction="#onStartBtnClick" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="开始" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Noto Sans CJK SC Regular" size="25.0" />
-               </font>
-            </JFXButton>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <left>
+                  <JFXButton fx:id="startBtn" buttonType="RAISED" onAction="#onStartBtnClick" prefHeight="60.0" prefWidth="185.0" style="-fx-background-color: #2196F3; -fx-text-fill: #FFFFFF;" text="开始捕获" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Noto Sans CJK SC Regular" size="25.0" />
+                     </font>
+                  </JFXButton>
+               </left>
+               <right>
+                  <JFXButton fx:id="changeBtn" buttonType="RAISED" onAction="#onChangeBtnClick" prefHeight="60.0" prefWidth="185.0" style="-fx-background-color: #2196F3; -fx-text-fill: #FFFFFF;" text="更换网络接口" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Noto Sans CJK SC Regular" size="25.0" />
+                     </font>
+                  </JFXButton>
+               </right>
+            </BorderPane>
          </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
       </BorderPane>
    </bottom>
 </BorderPane>

@@ -3,6 +3,7 @@ package application;
 import java.io.EOFException;
 import java.net.Inet4Address;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import javafx.application.Platform;
@@ -35,9 +36,13 @@ import com.jfoenix.controls.JFXTextArea;
 public class Controller {
 
     private static boolean isRunning = false;
+    private static PcapNetworkInterface networkInterface = null;
 
     @FXML
     private JFXButton startBtn;
+
+    @FXML
+    private JFXButton changeBtn;
 
     @FXML
     private JFXTextArea displayArea;
@@ -46,10 +51,23 @@ public class Controller {
     private JFXMasonryPane displayMasonryPane;
 
     @FXML
+    public void initialize() {
+        try {
+            List<PcapNetworkInterface> nifs = Pcaps.findAllDevs();
+            PcapNetworkInterface nif = nifs.get(0);
+            networkInterface = nif;
+            displayArea.appendText("设置网络接口: " + networkInterface.getName() + "\n");
+        } catch (PcapNativeException e) {
+            displayArea.appendText("查找网络接口时出现错误\n");
+        }
+    }
+
+    @FXML
     void onStartBtnClick(ActionEvent event) {
         if (!isRunning) {
             startBtn.setText("停止");
             startBtn.setStyle("-fx-background-color: #FF6200; -fx-text-fill: #ffffff;");
+            changeBtn.setDisable(true);
             Thread thread = new Thread() {
                 public void run() {
                     while (isRunning) {
@@ -62,13 +80,14 @@ public class Controller {
         } else {
             startBtn.setText("开始");
             startBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: #ffffff;");
+            changeBtn.setDisable(false);
             isRunning = false;
         }
     }
 
     private boolean startCapture() {
         try {
-            PcapNetworkInterface nif = Pcaps.getDevByName("wlp58s0");
+            PcapNetworkInterface nif = networkInterface;
             int snapLen = 65536;
             PromiscuousMode mode = PromiscuousMode.PROMISCUOUS;
             int timeout = 10;
@@ -156,6 +175,34 @@ public class Controller {
         } catch (NotOpenException e) {
         }
         return true;
+    }
+
+    @FXML
+    void onChangeBtnClick(ActionEvent event) {
+        nextNetworkInterface();
+    }
+
+    private void nextNetworkInterface() { // 循环更换接口
+        try {
+            List<PcapNetworkInterface> nifs = Pcaps.findAllDevs();
+
+            for (int i = 0; i < nifs.size(); i++) {
+                if (!networkInterface.getName().equals(nifs.get(i).getName())) {
+                    continue; // 没有找到当前接口
+                } else { // 找到了当前接口
+                    if (i == nifs.size() - 1) { // 是最后一个
+                        networkInterface = nifs.get(0); // 设置接口为第一个
+                        break; // 设置完毕
+                    } else { // 不是最后一个
+                        networkInterface = nifs.get(i + 1); // 设置接口为下一个
+                        break; // 设置完毕
+                    }
+                }
+            }
+            displayArea.appendText("设置网络接口: " + networkInterface.getName() + "\n");
+        } catch (NullPointerException e) {
+        } catch (PcapNativeException e) {
+        }
     }
 
     private String getPacketInfo(IpV4Packet pkt) {
