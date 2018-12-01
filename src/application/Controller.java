@@ -9,8 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -71,14 +69,14 @@ public class Controller {
                         + dstAddr.getHostAddress() + " Length: " + length + "\n");
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        Label label = new Label(protocol.name());
-                        label.setAlignment(Pos.CENTER);
-                        label.setPrefWidth(length / 2);
-                        label.setTextFill(Color.WHITE);
-                        label.setStyle("-fx-font: 16 arial;");
+                        JFXButton button = new JFXButton(protocol.name());
+                        button.setAlignment(Pos.CENTER);
+                        button.setPrefWidth(length / 2);
+                        button.setTextFill(Color.WHITE);
+                        button.setStyle("-fx-font: 14 arial;");
 
                         Color color = Color.WHITE;
-                        switch (label.getText()) {
+                        switch (button.getText()) {
                         case "TCP":
                             color = Color.web("#2196F3");
                             break;
@@ -92,9 +90,9 @@ public class Controller {
                             break;
                         }
 
-                        label.setBackground(
+                        button.setBackground(
                                 new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-                        displayMasonryPane.getChildren().add(label);
+                        displayMasonryPane.getChildren().add(button);
                     }
                 });
             } catch (NullPointerException e) {
