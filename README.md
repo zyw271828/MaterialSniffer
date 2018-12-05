@@ -3,12 +3,12 @@ A Material Design network sniffer.
 
 ## Build
 ### For Linux:
-* Install libpcap-dev, OpenJDK 11, OpenJFX 11
+* Install libpcap-dev, OpenJDK 11, OpenJFX 11  
 `sudo apt-get install libpcap-dev openjdk-11-jdk openjfx`
 
-* Capture packets with a non-root user
-`sudo setcap cap_net_raw,cap_net_admin=eip /path/to/bin/java`
-For example:
+* Capture packets with a non-root user  
+`sudo setcap cap_net_raw,cap_net_admin=eip /path/to/bin/java`  
+For example:  
 `sudo setcap cap_net_raw,cap_net_admin=eip /usr/lib/jvm/java-11-openjdk-amd64/bin/java`
 
 ### For Windows:
